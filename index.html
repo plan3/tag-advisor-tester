@@ -1,6 +1,54 @@
 <html>
-    <body>
-        <h1>Hello hello</h1>
+    <head>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.16/clipboard.min.js"></script>
+    <script>
+
+    var selfURL = window.location.href;
+    var authURL = 'https://auth.api.plan3.se/auth';
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function redirToAuth() {
+        window.location.replace(authURL + '?callback=' + encodeURIComponent(selfURL));
+    }
+
+	function loaded() {
+		var params = new URLSearchParams(location.search.slice(1));
+		var profileRef = getParameterByName('profileRef');
+		if (profileRef) {
+			console.log(profileRef);
+			var xhr = new XMLHttpRequest();
+			xhr.open('get', profileRef, true);
+			xhr.responseType = 'json';
+			xhr.onload = function() {
+				var status = xhr.status;
+				if (status == 200) {
+                    document.getElementById('jwt').setAttribute('value', xhr.response.jwt);
+				} else {
+					console.log(xhr);
+				}
+			};
+			xhr.send();
+		} else { 
+            redirToAuth();
+		}
+	}
+    </script>
+    </head>
+    <body onLoad="loaded()">
+        <h1>Tag counselor tester</h1>
+        <div id="informationArea"></div>
+        <textarea id="jwtArea"></textarea>
+        <form>
+            <input type="hidden" value="" id="jwt"/> 
+        </form>
     </body>
 </html>
-
