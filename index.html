@@ -24,7 +24,6 @@
 		var params = new URLSearchParams(location.search.slice(1));
 		var profileRef = getParameterByName('profileRef');
 		if (profileRef) {
-			console.log(profileRef);
 			var xhr = new XMLHttpRequest();
 			xhr.open('get', profileRef, true);
 			xhr.responseType = 'json';
@@ -41,14 +40,41 @@
             redirToAuth();
 		}
 	}
+
+    function testAdvisor() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://tag-counselor.api.plan3.se/advise');
+      xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+          var status = xhr.status;
+          if (statue == 200) {
+              document.getElementById('informationArea').innerHTML = JSON.stringify(xhr.response);
+          } else {
+
+          }
+      };
+      xhr.send(JSON.stringify({
+          title: document.getElementById('articleTitle').getAttribute('value'),
+          resources: [
+          {
+            type: 'text',
+            text: document.getElementById('articleText').innerHTML
+          }
+          ],
+          tags: []
+      }));
+
+    }
     </script>
     </head>
     <body onLoad="loaded()">
         <h1>Tag counselor tester</h1>
-        <div id="informationArea"></div>
-        <textarea id="jwtArea"></textarea>
+        <input id="articleTitle">
+        <textarea id="articleText" cols="100" rows="40"></textarea>
         <form>
             <input type="hidden" value="" id="jwt"/> 
         </form>
+        <div id="informationArea"></div>
     </body>
 </html>
