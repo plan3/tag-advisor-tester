@@ -31,6 +31,8 @@
 				var status = xhr.status;
 				if (status == 200) {
                     document.getElementById('jwt').setAttribute('value', xhr.response.jwt);
+                    console.log(xhr.response.newsroom);
+                    document.getElementById('newsroom').innerHTML = xhr.response.newsroom.name;
 				} else {
 					console.log(xhr);
 				}
@@ -78,6 +80,7 @@
     </head>
     <body onLoad="loaded()">
         <h1>Tag counselor tester</h1>
+        Newsroom: <span id="newsroom"></span><br>
         Language: <select id="language">
             <option value="sv">sv</option>
             <option value="no">no</option>
