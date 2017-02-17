@@ -43,7 +43,7 @@
 
     function testAdvisor() {
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://tag-counselor.api.plan3.se/advise');
+      xhr.open('POST', 'https://tag-counselor.api.plan3.se/advise?language=sv');
       xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function() {
@@ -51,7 +51,7 @@
           if (status == 200) {
               document.getElementById('informationArea').innerHTML = JSON.stringify(xhr.response);
           } else {
-
+              console.log(xhr.status);
           }
       };
       xhr.send(JSON.stringify({
