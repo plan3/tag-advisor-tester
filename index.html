@@ -52,7 +52,7 @@
           if (status == 200) {
               var html = '<tr><th>Tag</th><th>Type</th><th>Score</th><th>Sources</th></tr>';
               console.log(xhr.response);
-              xhr.response.forEach(function() {
+              xhr.response.forEach(function(tag) {
                   html += '<tr><td>' + tag.title +  '</td><td>' + tag.type + '</td><td>' + tag.score + '</td><td>' + tag.sources.join() + '</td></tr>';
               });
               document.getElementById('suggestedTags').innerHTML = html;
