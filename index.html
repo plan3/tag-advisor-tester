@@ -46,6 +46,7 @@
       xhr.open('POST', 'https://tag-counselor.api.plan3.se/advise?language=sv');
       xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
       xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.responseType = 'json';
       xhr.onload = function() {
           var status = xhr.status;
           if (status == 200) {
