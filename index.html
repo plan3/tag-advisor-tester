@@ -49,7 +49,11 @@
       xhr.onload = function() {
           var status = xhr.status;
           if (status == 200) {
-              document.getElementById('informationArea').innerHTML = JSON.stringify(xhr.response);
+              var html = '<tr><th>Tag</th><th>Type</th><th>Score</th><th>Sources</th></tr>';
+              xhr.response.forEach(function() {
+                  html += '<tr><td>' + tag.title +  '</td><td>' + tag.type + '</td><td>' + tag.score + '</td><td>' + tag.sources.join() + '</td></tr>';
+              });
+              document.getElementById('suggestedTags').innerHTML = html;
           } else {
               console.log(xhr.status);
           }
@@ -76,6 +80,9 @@
             <input type="hidden" value="" id="jwt"/> 
         </form>
         <button id="submit" onclick="testAdvisor();">Test</button>
-        <div id="informationArea"></div>
+        <div id="informationArea">
+            <table id="suggestedTags">
+            </table>
+        </div>
     </body>
 </html>
