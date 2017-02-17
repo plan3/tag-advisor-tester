@@ -55,11 +55,11 @@
           }
       };
       xhr.send(JSON.stringify({
-          title: document.getElementById('articleTitle').getAttribute('value'),
+          title: document.getElementById('articleTitle').value,
           resources: [
           {
             type: 'text',
-            text: document.getElementById('articleText').innerHTML
+            text: document.getElementById('articleText').value
           }
           ],
           tags: []
