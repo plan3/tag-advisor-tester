@@ -32,7 +32,8 @@
 				if (status == 200) {
                     document.getElementById('jwt').setAttribute('value', xhr.response.jwt);
                     console.log(xhr.response.newsroom);
-                    document.getElementById('newsroom').innerHTML = xhr.response.newsroom.name;
+                    document.getElementById('newsroomSpan').innerHTML = xhr.response.newsroom.name;
+                    document.getElementById('newsroom').setAttribute('value', xhr.response.newsroom.id);
 				} else {
 					console.log(xhr);
 				}
@@ -48,6 +49,7 @@
       var language = languageSelect.options[languageSelect.selectedIndex].value;
       var instanceSelect = document.getElementById('instance');
       var instance = instanceSelect.options[instanceSelect.selectedIndex].value;
+      var newsroom = document.getElementById("newsroom").value;
       var xhr = new XMLHttpRequest();
       xhr.open('POST', instance + '/advise?language=' + language);
       xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
@@ -74,7 +76,8 @@
             text: document.getElementById('articleText').value
           }
           ],
-          tags: []
+          tags: [],
+          newsroom: newsroom
       }));
 
     }
@@ -82,7 +85,7 @@
     </head>
     <body onLoad="loaded()">
         <h1>Tag counselor tester</h1>
-        Newsroom: <span id="newsroom"></span><br>
+        Newsroom: <span id="newsroomSpan"></span><br>
         Language: <select id="language">
             <option value="sv">sv</option>
             <option value="no">no</option>
@@ -96,6 +99,7 @@
         Text: <br> <textarea id="articleText" cols="100" rows="40"></textarea>
         <form>
             <input type="hidden" value="" id="jwt"/> 
+            <input type="hidden" value="" id="newsroom"/>
         </form>
         <button id="submit" onclick="testAdvisor();">Test</button>
         <div id="informationArea">
