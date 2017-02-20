@@ -46,8 +46,10 @@
     function testAdvisor() {
       var languageSelect = document.getElementById('language');
       var language = languageSelect.options[languageSelect.selectedIndex].value;
+      var instanceSelect = document.getElementById('instance');
+      var instance = instanceSelect.options[instanceSelect.selectedIndex].value;
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://tag-counselor.api.plan3.se/advise?language=' + language);
+      xhr.open('POST', instance + '/advise?language=' + language);
       xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.responseType = 'json';
@@ -86,6 +88,10 @@
             <option value="no">no</option>
             <option value="vg">vg</option>
         </select><br>
+        Tag counselor instance: <select id="instance">
+            <option value="https://plan3-tag-counselor-testing.herokuapp.com">TESTING</option>
+            <option value="https://tag-counselor.api.plan3.se">PROD</option>
+        </select>
         Title: <input id="articleTitle"><br>
         Text: <br> <textarea id="articleText" cols="100" rows="40"></textarea>
         <form>
