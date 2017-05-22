@@ -54,7 +54,6 @@
       xhr.open('POST', instance + '/advise?language=' + language);
       xhr.setRequestHeader('Authorization', 'Plan3JWT ' + document.getElementById('jwt').getAttribute('value'));
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('X-Enable-NLP', 'true');
       xhr.responseType = 'json';
       xhr.onload = function() {
           var status = xhr.status;
